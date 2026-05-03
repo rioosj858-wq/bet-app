@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0a0f1e;
+    color:white;
+}
+
+.card{
+    margin:10px;
+    padding:10px;
+    background:#16213d;
+    border-radius:10px;
+}
+
+.header{
+    padding:15px;
+    background:#111a33;
+    text-align:center;
+    color:#00ff88;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">🏆 BET ANALYTICS PRO</div>
+
+<div id="panel"></div>
+
+<script>
+
+async function load(){
+
+let res = await fetch("/panel")
+let data = await res.json()
+
+let html=""
+
+data.forEach(m=>{
+
+html += `
+<div class="card">
+<b>${m.match}</b><br>
+⚽ ${m.score}<br>
+📡 ${m.type}<br>
+📊 ${m.prob}%<br>
+💰 ${m.cuota}<br>
+<span>${m.status}</span>
+</div>
+`
+
+})
+
+document.getElementById("panel").innerHTML = html
+
+}
+
+load()
+setInterval(load,30000)
+
+</script>
+
+</body>
+</html>
